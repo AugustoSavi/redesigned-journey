@@ -413,8 +413,8 @@
     <script>
         // Dados
         const TELEFONE = "5548996651185";
-        const MENSAGEM_CONFIRMACAO = "Confirmo minha presença no casamento!";
-        const MESSAGE_NEGATIVA = "Infelizmente não poderei comparecer ao casamento, mas desejo toda a felicidade ao casal!";
+        const MENSAGEM_CONFIRMACAO = "Olá, Confirmo minha presença no casamento!";
+        const MESSAGE_NEGATIVA = "Olá, Infelizmente não poderei comparecer ao casamento, mas desejo toda a felicidade ao casal!";
 
         const giftTitles = [
             "Jantar Romântico", "Cotais de Lua de Mel", "Passeio de Barco", "Diária no Hotel", 
@@ -560,7 +560,11 @@
         }
 
         function ConfirmarWhatsApp(presenca) {
-            const url = `https://wa.me/${TELEFONE}?text=${encodeURIComponent(presenca === 'yes' ? MENSAGEM_CONFIRMACAO : MESSAGE_NEGATIVA)}`;
+            const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
+            const texto = encodeURIComponent(presenca === 'yes' ? MENSAGEM_CONFIRMACAO : MESSAGE_NEGATIVA);
+            const url = isMobile
+            ? `https://wa.me/${TELEFONE}?text=${texto}`
+            : `https://web.whatsapp.com/send?phone=${TELEFONE}&text=${texto}`;
 
             window.open(url, "_blank");
         }
