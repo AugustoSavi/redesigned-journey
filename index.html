@@ -1,0 +1,599 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Casamento Augusto & Carolini</title>
+    
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    
+    <!-- Icons (Lucide) -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+    
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+
+    <!-- Configuração do Tema (Cores Rústicas) -->
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              serif: ['"Cormorant Garamond"', 'serif'],
+              script: ['"Great Vibes"', 'cursive'],
+              sans: ['"Montserrat"', 'sans-serif'],
+              roboto: ['"Roboto"', 'sans-serif'],
+            },
+            colors: {
+              // Paleta Rústica (Tons de Terra, Linho e Madeira)
+              rustic: {
+                50: '#faf9f6',  // Off-white / Papel
+                100: '#f0ece3', // Linho
+                200: '#e2dacf', // Bege Areia
+                300: '#c5b6a0', // Trigo
+                400: '#a89076', // Madeira Clara
+                500: '#8c735a', // Bronze / Couro
+                600: '#705a42', // Madeira Média
+                700: '#564230', // Café
+                800: '#3e2f22', // Terra Escura
+                900: '#2b2118', // Preto Suave
+              },
+              // Verde Sálvia (Acento Natural)
+              sage: {
+                50: '#f4f7f4',
+                100: '#e3ebe3',
+                200: '#c5d6c5',
+                300: '#9db89d',
+                400: '#7a967a',
+                500: '#607d60', // Sálvia Principal
+                600: '#4a634a',
+                700: '#384d38',
+              }
+            },
+            animation: {
+              'fade-in': 'fadeIn 1.5s ease-out',
+            },
+            keyframes: {
+              fadeIn: {
+                '0%': { opacity: '0', transform: 'translateY(10px)' },
+                '100%': { opacity: '1', transform: 'translateY(0)' },
+              }
+            }
+          }
+        }
+      }
+    </script>
+    <style>
+        /* Ajustes finos de scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #f0ece3;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #a89076;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #8c735a;
+        }
+        .hidden-section {
+            display: none;
+        }
+        /* Efeito de filtro vintage nas imagens */
+        .img-vintage {
+            filter: sepia(10%) contrast(95%);
+            transition: filter 0.5s ease, transform 0.7s ease;
+        }
+        .img-vintage:hover {
+            filter: sepia(0%) contrast(105%);
+            transform: scale(1.05);
+        }
+    </style>
+<script type="importmap">
+{
+  "imports": {
+    "react": "https://esm.sh/react@^19.2.3",
+    "react-dom/": "https://esm.sh/react-dom@^19.2.3/",
+    "react/": "https://esm.sh/react@^19.2.3/",
+    "lucide-react": "https://esm.sh/lucide-react@^0.561.0"
+  }
+}
+</script>
+</head>
+<body class="bg-rustic-50 text-rustic-900 font-sans antialiased selection:bg-rustic-200 selection:text-rustic-800">
+
+    <!-- NAVBAR -->
+    <nav class="sticky top-0 z-40 bg-rustic-50/95 backdrop-blur-md shadow-sm border-b border-rustic-200">
+        <div class="max-w-6xl mx-auto px-4">
+            <div class="flex flex-col md:flex-row justify-center md:justify-between items-center h-auto md:h-24 py-4 md:py-0 gap-4 md:gap-0">
+                <div onclick="switchTab('home')" class="font-script text-4xl text-rustic-800 cursor-pointer hover:text-sage-600 transition-colors">
+                    Augusto & Carolini
+                </div>
+
+                <div class="flex flex-wrap justify-center gap-3">
+                    <button onclick="switchTab('home')" id="btn-home" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border bg-sage-600 text-white font-medium border-sage-600 shadow-sm">
+                        <i data-lucide="heart" class="w-4 h-4 fill-current"></i>
+                        <span class="uppercase tracking-widest text-xs md:text-sm font-sans">O Casamento</span>
+                    </button>
+
+                    <button onclick="switchTab('rsvp')" id="btn-rsvp" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border text-rustic-600 border-transparent hover:text-sage-700 hover:bg-rustic-100">
+                        <i data-lucide="mail" class="w-4 h-4"></i>
+                        <span class="uppercase tracking-widest text-xs md:text-sm font-sans">Confirmar presença</span>
+                    </button>
+
+                    <button onclick="switchTab('gifts')" id="btn-gifts" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border text-rustic-600 border-transparent hover:text-sage-700 hover:bg-rustic-100">
+                        <i data-lucide="gift" class="w-4 h-4"></i>
+                        <span class="uppercase tracking-widest text-xs md:text-sm font-sans">Presentes</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- MAIN CONTENT -->
+    <main class="w-full">
+        
+        <!-- SEÇÃO HOME -->
+        <section id="tab-home" class="animate-fade-in pb-0">
+            <!-- Hero Section -->
+            <div class="relative h-[85vh] w-full overflow-hidden">
+                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transform hover:scale-105 transition-transform duration-[40s]"
+                     style="background-image: url('/public/6.jpg')">
+                </div>
+                <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center text-white text-center p-4">
+                    <div class="animate-fade-in p-10 md:p-16 rounded-sm  max-w-3xl">
+                        <p class="font-sans tracking-[0.4em] uppercase text-xs md:text-sm mb-6 text-rustic-100 font-bold border-b border-white/30 pb-4 inline-block">Vamos nos casar</p>
+                        <h1 class="font-script text-6xl md:text-8xl lg:text-9xl mb-8 text-white drop-shadow-md">Augusto & Carolini</h1>
+                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 font-serif text-xl md:text-2xl italic text-rustic-50">
+                            <span class="drop-shadow-sm tracking-wide">25 de Julho de 2026</span>
+                            <span class="hidden md:block w-px h-8 bg-white/50"></span>
+                            <span class="drop-shadow-sm">10:30</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Message Section -->
+            <div class="bg-rustic-50 relative">
+                <div class="max-w-4xl mx-auto px-6 py-24 text-center">
+                    <div class="inline-flex items-center justify-center w-16 h-16 rounded-full bg-sage-100 mb-8">
+                        <i data-lucide="leaf" class="w-8 h-8 text-sage-600"></i>
+                    </div>
+                    <h2 class="font-serif text-4xl md:text-5xl text-rustic-800 mb-8 italic">Sejam Bem-vindos</h2>
+                    <div class="w-20 h-1 bg-sage-400 mx-auto mb-8"></div>
+                    <p class="font-serif text-xl text-rustic-600 leading-relaxed max-w-2xl mx-auto">
+                        "Onde quer que você vá, vá com todo o seu coração." <br/>
+                        <span class="text-base font-sans text-rustic-500 mt-4 block">
+                            Estamos felizes em compartilhar nosso dia especial com vocês.
+                        </span>
+                    </p>
+                </div>
+            </div>
+
+            <!-- Couple Gallery -->
+            <div class="bg-white py-24 px-4 md:px-8 border-y border-rustic-200">
+                <div class="max-w-6xl mx-auto">
+                    <div class="text-center mb-16">
+                        <div class="inline-block p-4 rounded-full border border-rustic-200 bg-rustic-50 mb-6">
+                            <i data-lucide="camera" class="w-6 h-6 text-sage-600"></i>
+                        </div>
+                        <h2 class="font-serif text-4xl md:text-5xl text-rustic-800 mb-4 italic">Nossos Momentos</h2>
+                        <p class="text-rustic-500 font-sans max-w-xl mx-auto tracking-wide">
+                            RETRATOS DE UMA HISTÓRIA DE AMOR
+                        </p>
+                    </div>
+
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px] p-4 bg-rustic-50 rounded-sm">
+                        <!-- Foto 1 -->
+                        <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-2 md:row-span-2">
+                            <img src="/public/1.jpg" class="w-full h-full object-cover img-vintage" alt="Casal">
+                            <div class="absolute inset-0 bg-rustic-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
+                                <div class="border border-white/50 p-4 bg-black/20 backdrop-blur-sm">
+                                    <p class="text-white font-serif italic text-lg flex items-center gap-2"><i data-lucide="heart" class="w-4 h-4 text-white fill-white"></i> Nossos melhores dias</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Foto 2 -->
+                        <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-1">
+                            <img src="/public/2.JPG" class="w-full h-full object-cover img-vintage" alt="Abraço">
+                        </div>
+
+                         <!-- Foto 3 -->
+                         <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-2">
+                            <img src="/public/3.jpg" class="w-full h-full object-cover img-vintage" alt="Celebração">
+                        </div>
+
+                        <!-- Foto 4 -->
+                        <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-1">
+                            <img src="/public/4.jpg" class="w-full h-full object-cover img-vintage" alt="Selfie">
+                        </div>
+                         <!-- Foto 5 -->
+                         <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-1">
+                            <img src="/public/5.jpg" class="w-full h-full object-cover img-vintage" alt="Sorrisos">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Location Section -->
+            <div class="bg-rustic-100 py-24 px-6 relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-64 h-64 bg-sage-100 rounded-full opacity-30 blur-3xl translate-x-1/2 -translate-y-1/2"></div>
+                <div class="absolute bottom-0 left-0 w-64 h-64 bg-rustic-300 rounded-full opacity-20 blur-3xl -translate-x-1/2 translate-y-1/2"></div>
+
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+                    <div class="space-y-10">
+                        <div class="space-y-4">
+                            <h3 class="font-serif text-4xl text-rustic-800 flex items-center gap-4">
+                                <span class="p-3 bg-sage-600 rounded-full text-white shadow-lg">
+                                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                </span>
+                                Cerimônia e Recepção
+                            </h3>
+                            <p class="text-rustic-500 font-sans uppercase tracking-widest text-sm pl-2">Onde a magia acontece</p>
+                        </div>
+                        
+                        <div class="bg-white p-8 rounded-sm shadow-sm border-l-4 border-sage-500 space-y-6">
+                            <div>
+                                <p class="font-serif text-2xl text-rustic-800 mb-2">Restaurante Pirago</p>
+                                <p class="text-rustic-600">Estrada geral Giovanni Baldessa, km 2.5, a/n - Pirago, Urussanga - SC, 88840-000</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 pt-6 border-t border-rustic-100">
+                                <i data-lucide="calendar" class="w-5 h-5 text-sage-600"></i>
+                                <p class="text-rustic-700 font-medium">
+                                    25 de Junho de 2026 às 10:30
+                                </p>
+                            </div>
+                        </div>
+                        
+                        <!-- <div class="flex items-center gap-3 text-rustic-600 italic">
+                            <span class="w-8 h-px bg-rustic-400"></span>
+                            Traje Sugerido: Passeio Completo
+                        </div> -->
+                    </div>
+                    
+                    <div class="w-full h-[500px] rounded-sm shadow-2xl p-2 bg-white transform rotate-1 hover:rotate-0 transition-all duration-500">
+                        <div class="w-full h-full border border-rustic-200">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3505.244160608355!2d-49.3412264!3d-28.53238!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x952175bf1f51494f%3A0xde33ca5aa7fb3bc3!2sRestaurante%20Pirago!5e0!3m2!1spt-BR!2sbr!4v1765590827079!5m2!1spt-BR!2sbr" 
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="filter grayscale-[20%] sepia-[10%]">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO PRESENTES -->
+        <section id="tab-gifts" class="hidden-section animate-fade-in">
+            <div class="min-h-screen bg-rustic-50 py-20 px-4 md:px-8">
+                <div class="max-w-[1600px] mx-auto">
+                    <div class="text-center mb-16 space-y-6">
+                        <div class="flex justify-center">
+                            <div class="p-4 bg-white rounded-full shadow-sm border border-rustic-200">
+                                <i data-lucide="gift" class="w-8 h-8 text-sage-600"></i>
+                            </div>
+                        </div>
+                        <h2 class="font-serif text-4xl md:text-5xl text-rustic-800 italic">Lista de Presentes</h2>
+                        <div class="w-16 h-px bg-rustic-300 mx-auto"></div>
+                        <p class="text-rustic-600 max-w-2xl mx-auto text-lg font-light">
+                            O mais importante para nós é ter você ao nosso lado nesse dia especial
+                            mas se quiser nos ajudar a começar essa nova etapa, deixamos algumas sugestões com muito carinho.
+                        </p>
+                    </div>
+
+                    <!-- Grid de Presentes (Injetado via JS) -->
+                    <div id="gift-grid-container" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-8">
+                        <!-- JS content here -->
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SEÇÃO RSVP -->
+        <section id="tab-rsvp" class="hidden-section animate-fade-in">
+            <div class="min-h-[calc(100vh-96px)] bg-rustic-50 py-20 px-6 flex items-center justify-center relative overflow-hidden">
+                <div class="absolute top-0 right-0 w-96 h-96 bg-sage-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
+                <div class="absolute bottom-0 left-0 w-96 h-96 bg-rustic-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
+
+                <div class="max-w-3xl w-full mx-auto relative z-10">
+                    <div class="text-center mb-16">
+                        <div class="inline-block p-4 bg-white rounded-full shadow-sm mb-6 border border-rustic-200">
+                            <i data-lucide="mail" class="w-8 h-8 text-sage-600"></i>
+                        </div>
+                        <h2 class="font-serif text-4xl md:text-5xl text-rustic-800 mb-6 italic">Confirmação de Presença</h2>
+                        <p class="text-rustic-600 font-sans max-w-xl mx-auto text-lg font-light">
+                            Sua presença tornará nosso dia ainda mais especial.
+                        </p>
+                    </div>
+
+                    <div class="bg-white/80 backdrop-blur-md rounded-sm shadow-xl p-8 md:p-12 border border-rustic-200 relative">
+                        
+                        <!-- Success Message -->
+                        <div id="rsvp-success" class="hidden flex-col items-center justify-center text-center py-12 animate-fade-in">
+                            <div id="rsvp-icon-box" class="w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-sm border border-white bg-rustic-100">
+                                <i data-lucide="check-circle" class="w-10 h-10 text-rustic-600"></i>
+                            </div>
+                            <h3 id="rsvp-title" class="font-serif text-3xl text-rustic-800 mb-4">Confirmado com Sucesso</h3>
+                            <p id="rsvp-message" class="text-rustic-600 mb-8 max-w-md text-lg">
+                                Agradecemos por confirmar. Estamos ansiosos para celebrar com você!
+                            </p>
+                            <div id="rsvp-warning" class="hidden flex items-center gap-2 text-sm text-rustic-600 bg-rustic-50 px-6 py-3 rounded-full border border-rustic-200">
+                                <i data-lucide="alert-circle" class="w-4 h-4"></i>
+                                <span>Registro único por dispositivo.</span>
+                            </div>
+                        </div>
+
+                        <!-- Form -->
+                        <form id="rsvp-form" class="space-y-8">
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                                <div class="space-y-3">
+                                    <label for="name" class="text-xs font-bold text-rustic-500 uppercase tracking-widest flex items-center gap-2">
+                                        Nome Completo <span class="text-red-400">*</span>
+                                    </label>
+                                    <input type="text" id="name" required class="w-full px-4 py-3 bg-rustic-50/50 border border-rustic-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-sage-500 focus:border-sage-500 transition-all text-rustic-800 placeholder-rustic-300 font-serif" placeholder="Ex: João da Silva">
+                                </div>
+
+                                <div class="space-y-3">
+                                    <label for="attending" class="text-xs font-bold text-rustic-500 uppercase tracking-widest flex items-center gap-2">
+                                        Irá comparecer?
+                                    </label>
+                                    <select id="attending" onchange="toggleGuestsField()" class="w-full px-4 py-3 bg-rustic-50/50 border border-rustic-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-sage-500 focus:border-sage-500 transition-all text-rustic-800 font-serif">
+                                        <option value="yes">Sim, estarei lá</option>
+                                        <option value="no">Infelizmente não</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div id="guests-container" class="space-y-3 animate-fade-in">
+                                <label for="guests" class="text-xs font-bold text-rustic-500 uppercase tracking-widest">
+                                    Acompanhantes
+                                </label>
+                                <p class="text-xs text-rustic-400 italic">Total de pessoas com você (0 se for só você)</p>
+                                <input type="number" id="guests" min="0" max="10" value="0" class="w-full px-4 py-3 bg-rustic-50/50 border border-rustic-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-sage-500 focus:border-sage-500 transition-all text-rustic-800 font-serif">
+                            </div>
+
+                            <div class="space-y-3">
+                                <label for="message" class="text-xs font-bold text-rustic-500 uppercase tracking-widest">
+                                    Mensagem (Opcional)
+                                </label>
+                                <textarea id="message" rows="4" class="w-full px-4 py-3 bg-rustic-50/50 border border-rustic-300 rounded-sm focus:outline-none focus:ring-1 focus:ring-sage-500 focus:border-sage-500 transition-all text-rustic-800 placeholder-rustic-300 font-serif" placeholder="Deixe uma mensagem aos noivos..."></textarea>
+                            </div>
+
+                            <div class="pt-6">
+                                <button type="submit" id="submit-btn" class="w-full bg-sage-600 text-white py-4 px-6 rounded-sm hover:bg-sage-700 transition-all flex items-center justify-center gap-2 text-sm uppercase tracking-widest font-medium shadow-md hover:shadow-lg disabled:opacity-70 disabled:cursor-not-allowed">
+                                    <i data-lucide="send" class="w-4 h-4"></i>
+                                    <span>Confirmar</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- FOOTER -->
+    <footer class="bg-rustic-900 text-rustic-100 py-16 text-center border-t-4 border-sage-500">
+        <div class="max-w-4xl mx-auto px-6 space-y-6">
+            <h2 class="font-script text-5xl mb-4 text-sage-100">Augusto & Carolini</h2>
+            <div class="w-24 h-px bg-sage-500 mx-auto"></div>
+            <p class="font-sans text-xs tracking-[0.2em] opacity-80 uppercase text-rustic-300">
+                Feito com amor • 2024
+            </p>
+            <p class="text-sm text-rustic-400 italic font-serif">
+                "O amor é a única coisa que cresce à medida que se reparte."
+            </p>
+        </div>
+    </footer>
+
+    <!-- MODAL DE PAGAMENTO -->
+    <div id="payment-modal" class="hidden fixed inset-0 z-50 flex items-center justify-center p-4">
+        <div class="absolute inset-0 bg-rustic-900/60 backdrop-blur-sm transition-opacity" onclick="closeModal()"></div>
+        <div class="relative bg-white rounded-sm shadow-2xl w-full max-w-md overflow-hidden transform transition-all scale-100 border border-rustic-200">
+            <div class="bg-rustic-100 p-6 border-b border-rustic-200 flex justify-between items-center">
+                <h3 class="font-serif text-2xl text-rustic-800 italic">Presentear os Noivos</h3>
+                <button onclick="closeModal()" class="text-rustic-500 hover:text-rustic-800 transition-colors">
+                    <i data-lucide="x" class="w-6 h-6"></i>
+                </button>
+            </div>
+
+            <div class="p-8 flex flex-col items-center text-center space-y-6">
+                <div class="space-y-2">
+                    <p class="text-xs font-bold uppercase tracking-widest text-sage-600">Item Selecionado</p>
+                    <h4 id="modal-title" class="text-2xl font-serif text-rustic-900">Título</h4>
+                    <p id="modal-price" class="text-3xl font-bold text-rustic-700 font-serif">R$ 0,00</p>
+                </div>
+
+                <div class="w-56 h-56 bg-white border border-rustic-200 p-3 rounded-sm shadow-inner">
+                    <img id="modal-qr" src="" alt="QR Code" class="w-full h-full object-contain">
+                </div>
+                
+                <p class="text-sm text-rustic-500 font-serif italic">
+                    Escaneie o QR Code ou use o "Pix Copia e Cola" abaixo.
+                </p>
+                <input type="hidden" id="modal-pix-key">
+
+                <button onclick="copyPix()" id="copy-btn" class="w-full py-4 px-4 rounded-sm flex items-center justify-center gap-2 font-medium tracking-wide transition-all duration-300 text-sm uppercase bg-rustic-800 text-rustic-50 hover:bg-rustic-700 shadow-md hover:shadow-lg">
+                    <i data-lucide="copy" class="w-4 h-4"></i>
+                    <span>Copiar Código Pix</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- JAVASCRIPT LOGIC -->
+    <script>
+        // Dados
+        const giftTitles = [
+            "Jantar Romântico", "Cotais de Lua de Mel", "Passeio de Barco", "Diária no Hotel", 
+            "Café da Manhã na Cama", "Massagem para Casal", "Kit Casa Nova", "Jogo de Panelas",
+            "Fritadeira Airfryer", "Máquina de Café", "Conjunto de Toalhas", "Roupa de Cama",
+            "Aparelho de Jantar", "Faqueiro Inox", "Liquidificador Turbo", "Batedeira Planetária",
+            "Aspirador Robô", "Alexa Echo Dot", "Kit Churrasco", "Adega de Vinhos",
+            "Decoração para Sala", "Quadros Decorativos", "Tapete para Sala", "Almofadas Personalizadas", "Contribuição Livre"
+        ];
+        // Imagens rústicas/neutras do Unsplash
+        const giftImages = [
+            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0", "https://images.unsplash.com/photo-1576201836106-db1758fd1c97", 
+            "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957", "https://images.unsplash.com/photo-1566073771259-6a8506099945", 
+            "https://images.unsplash.com/photo-1533090161767-e6ffed986c88", "https://images.unsplash.com/photo-1544161515-4ab6ce6db874", 
+            "https://images.unsplash.com/photo-1581539250439-c96689b516dd", "https://images.unsplash.com/photo-1556910103-1c02745a30bf", 
+            "https://images.unsplash.com/photo-1589365278144-c9e705f843ba", "https://images.unsplash.com/photo-1520970014086-2208d157c9e2", 
+            "https://images.unsplash.com/photo-1579621970563-ebec7560eb3e", "https://images.unsplash.com/photo-1522771753037-633361652bff", 
+            "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1", "https://images.unsplash.com/photo-1584269600519-112d071b35e6", 
+            "https://images.unsplash.com/photo-1574966739987-65e38a0b0d3e", "https://images.unsplash.com/photo-1578643463396-0997cb5328c1", 
+            "https://images.unsplash.com/photo-1557821552-17105176677c", "https://images.unsplash.com/photo-1543512214-318c77a790d3", 
+            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1", "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb", 
+            "https://images.unsplash.com/photo-1513519245088-0e12902e5a38", "https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1", 
+            "https://images.unsplash.com/photo-1586023492125-27b2c045efd7", "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6", 
+            "https://images.unsplash.com/photo-1607346256330-dee7af15f7c5"
+        ];
+        const PIX_KEY = "00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-4266141740005204000053039865802BR5913AUGUSTO CAROL6008BRASILIA62070503***6304ABCD";
+
+        // --- Navegação ---
+        function switchTab(tabId) {
+            ['home', 'gifts', 'rsvp'].forEach(t => {
+                document.getElementById('tab-'+t).style.display = (t === tabId) ? 'block' : 'none';
+                
+                const btn = document.getElementById('btn-'+t);
+                const icon = btn.querySelector('i');
+                if(t === tabId) {
+                    btn.className = "nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border bg-sage-600 text-white font-medium border-sage-600 shadow-sm";
+                    if(tabId === 'home') icon.classList.add('fill-current');
+                } else {
+                    btn.className = "nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border text-rustic-600 border-transparent hover:text-sage-700 hover:bg-rustic-100";
+                    if(tabId === 'home') icon.classList.remove('fill-current');
+                }
+            });
+            lucide.createIcons();
+            window.scrollTo(0,0);
+        }
+
+        // --- Renderizar Presentes ---
+        function renderGifts() {
+            const container = document.getElementById('gift-grid-container');
+            let html = '';
+            for(let i=0; i<25; i++) {
+                const title = giftTitles[i] || `Presente ${i+1}`;
+                const price = Math.floor(Math.random() * (500 - 50 + 1) + 50);
+                const img = (giftImages[i] || "https://images.unsplash.com/photo-1513885535751-8b9238bd345a") + "?q=80&w=400&h=300&auto=format&fit=crop";
+                
+                html += `
+                <div class="bg-white rounded-sm shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col h-full border border-rustic-100">
+                    <div class="relative overflow-hidden aspect-[4/3]">
+                        <img src="${img}" alt="${title}" class="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-700 filter sepia-[10%]">
+                        <div class="absolute inset-0 bg-sage-900/20 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center">
+                            <div class="bg-white/90 backdrop-blur-sm px-4 py-2 rounded-sm transform translate-y-4 group-hover:translate-y-0 transition-transform">
+                                <p class="text-rustic-800 text-sm font-serif italic flex items-center gap-2">
+                                    <i data-lucide="heart" class="w-4 h-4 text-sage-600"></i> Presentear
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="p-6 flex flex-col flex-grow text-center">
+                        <h3 class="font-serif text-xl text-rustic-800 mb-2 line-clamp-1">${title}</h3>
+                        <p class="text-xs text-rustic-500 mb-6 line-clamp-2 min-h-[2.5em] tracking-wide">Ajude os noivos a realizarem este sonho.</p>
+                        <div class="mt-auto space-y-4 pt-4 border-t border-rustic-50">
+                            <p class="text-2xl font-medium text-sage-700 font-serif">R$ ${price.toFixed(2).replace('.', ',')}</p>
+                            <button onclick="openModal('${title}', ${price})" class="w-full bg-rustic-700 text-rustic-50 py-3 px-4 rounded-sm hover:bg-sage-600 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-xs uppercase tracking-[0.1em] font-medium">
+                                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Presentear
+                            </button>
+                        </div>
+                    </div>
+                </div>`;
+            }
+            container.innerHTML = html;
+        }
+
+        // --- Modal ---
+        function openModal(title, price) {
+            document.getElementById('modal-title').innerText = title;
+            document.getElementById('modal-price').innerText = `R$ ${price.toFixed(2).replace('.', ',')}`;
+            document.getElementById('modal-pix-key').value = PIX_KEY;
+            document.getElementById('modal-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(PIX_KEY)}&color=3e2f22`;
+            
+            document.getElementById('payment-modal').classList.remove('hidden');
+            lucide.createIcons();
+        }
+
+        function closeModal() {
+            document.getElementById('payment-modal').classList.add('hidden');
+            // Reset button style
+            const btn = document.getElementById('copy-btn');
+            btn.className = "w-full py-4 px-4 rounded-sm flex items-center justify-center gap-2 font-medium tracking-wide transition-all duration-300 text-sm uppercase bg-rustic-800 text-rustic-50 hover:bg-rustic-700 shadow-md hover:shadow-lg";
+            btn.innerHTML = `<i data-lucide="copy" class="w-4 h-4"></i><span>Copiar Código Pix</span>`;
+            lucide.createIcons();
+        }
+
+        function copyPix() {
+            const key = document.getElementById('modal-pix-key').value;
+            navigator.clipboard.writeText(key).then(() => {
+                const btn = document.getElementById('copy-btn');
+                btn.className = "w-full py-4 px-4 rounded-sm flex items-center justify-center gap-2 font-medium tracking-wide transition-all duration-300 text-sm uppercase bg-sage-100 text-sage-800 border border-sage-200";
+                btn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>Código Copiado!</span>`;
+                lucide.createIcons();
+            });
+        }
+
+        // --- RSVP ---
+        function toggleGuestsField() {
+            const val = document.getElementById('attending').value;
+            const container = document.getElementById('guests-container');
+            container.style.display = (val === 'yes') ? 'block' : 'none';
+        }
+
+        function checkRSVP() {
+            if(localStorage.getItem('wedding_rsvp_completed')) {
+                showRSVPSuccess(true);
+            }
+        }
+
+        function showRSVPSuccess(already) {
+            document.getElementById('rsvp-form').classList.add('hidden');
+            const box = document.getElementById('rsvp-success');
+            box.classList.remove('hidden');
+            box.classList.add('flex');
+            
+            if(already) {
+                document.getElementById('rsvp-title').innerText = "Presença Já Confirmada";
+                document.getElementById('rsvp-message').innerText = "Você já confirmou sua presença anteriormente. Nos vemos lá!";
+                document.getElementById('rsvp-warning').classList.remove('hidden');
+                
+                const iconBox = document.getElementById('rsvp-icon-box');
+                iconBox.className = "w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-sm border border-white bg-sage-100";
+                iconBox.innerHTML = `<i data-lucide="check-circle" class="w-10 h-10 text-sage-600"></i>`;
+            }
+            lucide.createIcons();
+        }
+
+        document.getElementById('rsvp-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const btn = document.getElementById('submit-btn');
+            btn.disabled = true;
+            btn.innerHTML = `<span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Enviando...`;
+            
+            setTimeout(() => {
+                localStorage.setItem('wedding_rsvp_completed', 'true');
+                showRSVPSuccess(false);
+            }, 1500);
+        });
+
+        // --- Init ---
+        window.addEventListener('DOMContentLoaded', () => {
+            renderGifts();
+            checkRSVP();
+            lucide.createIcons();
+        });
+    </script>
+</body>
+</html>
