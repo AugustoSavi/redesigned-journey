@@ -35,31 +35,33 @@
               roboto: ['"Roboto"', 'sans-serif'],
             },
             colors: {
-              // Paleta Rústica (Tons de Terra, Linho e Madeira)
-              rustic: {
-                50: '#faf9f6',  // Off-white / Papel
-                100: '#f0ece3', // Linho
-                200: '#e2dacf', // Bege Areia
-                300: '#c5b6a0', // Trigo
-                400: '#a89076', // Madeira Clara
-                500: '#8c735a', // Bronze / Couro
-                600: '#705a42', // Madeira Média
-                700: '#564230', // Café
-                800: '#3e2f22', // Terra Escura
-                900: '#2b2118', // Preto Suave
-              },
-              // Verde Sálvia (Acento Natural)
-              sage: {
-                50: '#f4f7f4',
-                100: '#e3ebe3',
-                200: '#c5d6c5',
-                300: '#9db89d',
-                400: '#7a967a',
-                500: '#607d60', // Sálvia Principal
-                600: '#4a634a',
-                700: '#384d38',
-              }
+            // Paleta Midnight Blue (Base elegante e profunda)
+                rustic: {
+                    50:  '#f2f4f8', // Azul acinzentado muito claro
+                    100: '#e1e6ef', // Azul névoa
+                    200: '#c3cde0', // Azul aço claro
+                    300: '#9aa9c6', // Azul frio médio
+                    400: '#6f85aa', // Azul denim
+                    500: '#2c3e50', // Midnight Blue principal
+                    600: '#243447', // Midnight profundo
+                    700: '#1c2938', // Azul noite
+                    800: '#141e2a', // Azul quase preto
+                    900: '#0d141f', // Preto azulado
+                },
+
+                // Paleta Marsala (Acento quente e sofisticado)
+                sage: {
+                    50:  '#faf4f5', // Rosado muito claro
+                    100: '#f1dfe2', // Nude rosé
+                    200: '#e0b9c0', // Marsala claro
+                    300: '#c98b95', // Vinho suave
+                    400: '#b06572', // Marsala médio
+                    500: '#7b2d3a', // Marsala principal
+                    600: '#67262f', // Marsala profundo
+                    700: '#531e26', // Vinho escuro
+                }
             },
+
             animation: {
               'fade-in': 'fadeIn 1.5s ease-out',
             },
@@ -146,7 +148,7 @@
                     <div class="animate-fade-in p-10 md:p-16 rounded-sm  max-w-3xl">
                         <p class="font-sans tracking-[0.4em] uppercase text-xs md:text-sm mb-6 text-rustic-100 font-bold border-b border-white/30 pb-4 inline-block">Vamos nos casar</p>
                         <h1 class="font-script text-6xl md:text-8xl lg:text-9xl mb-8 text-white drop-shadow-md">Augusto & Carolini</h1>
-                        <div class="flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 font-serif text-xl md:text-2xl italic text-rustic-50">
+                        <div class="font-sans flex flex-col md:flex-row items-center justify-center gap-4 md:gap-8 text-xs md:text-2xl italic text-rustic-100 font-bold">
                             <span class="drop-shadow-sm tracking-wide">25 de Julho de 2026</span>
                             <span class="hidden md:block w-px h-8 bg-white/50"></span>
                             <span class="drop-shadow-sm">10:30</span>
@@ -223,6 +225,7 @@
                 <div class="absolute top-0 right-0 w-64 h-64 bg-sage-100 rounded-full opacity-30 blur-3xl translate-x-1/2 -translate-y-1/2"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-rustic-300 rounded-full opacity-20 blur-3xl -translate-x-1/2 translate-y-1/2"></div>
 
+                <!-- cerimonia -->
                 <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
                     <div class="space-y-10">
                         <div class="space-y-4">
@@ -230,7 +233,50 @@
                                 <span class="p-3 bg-sage-600 rounded-full text-white shadow-lg">
                                     <i data-lucide="map-pin" class="w-6 h-6"></i>
                                 </span>
-                                Cerimônia e Recepção
+                                Cerimônia
+                            </h3>
+                            <p class="text-rustic-500 font-sans uppercase tracking-widest text-sm pl-2">Cenário da nossa união</p>
+                        </div>
+                        
+                        <div class="bg-white p-8 rounded-sm shadow-sm border-l-4 border-sage-500 space-y-6">
+                            <div>
+                                <p class="font-serif text-2xl text-rustic-800 mb-2">Capela de Santo Antônio</p>
+                                <p class="text-rustic-600">Avenida principal - Bairro Rio Caeté, Urussanga - SC</p>
+                            </div>
+                            
+                            <div class="flex items-center gap-4 pt-6 border-t border-rustic-100">
+                                <i data-lucide="calendar" class="w-5 h-5 text-sage-600"></i>
+                                <p class="text-rustic-700 font-medium">
+                                    25 de Julho de 2026 às 10:30
+                                </p>
+                            </div> 
+                        </div>
+                    </div>
+                    
+                    <div class="w-full h-[500px] rounded-sm shadow-2xl p-2 bg-white transform rotate-1 hover:rotate-0 transition-all duration-500">
+                        <div class="w-full h-full border border-rustic-200">
+                            <iframe 
+                                src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d28036.927934271607!2d-49.38435665251838!3d-28.55125989943651!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x952175fa61bd17c1%3A0x67c64d9ef30510af!2sCapela%20de%20Santo%20Ant%C3%B4nio!5e0!3m2!1spt-BR!2sbr!4v1766019959025!5m2!1spt-BR!2sbr" 
+                                width="100%" height="100%" style="border:0;" allowfullscreen="" loading="lazy" 
+                                referrerpolicy="no-referrer-when-downgrade"
+                                class="filter grayscale-[20%] sepia-[10%]">
+                            </iframe>
+                        </div>
+                    </div>
+                </div>
+                <br/><br/>
+                <div>
+                    <hr class="border-rustic-400 my-16">
+                </div>
+                <!-- recepção -->
+                <div class="max-w-6xl mx-auto grid grid-cols-1 md:grid-cols-2 gap-16 items-center relative z-10">
+                    <div class="space-y-10">
+                        <div class="space-y-4">
+                            <h3 class="font-serif text-4xl text-rustic-800 flex items-center gap-4">
+                                <span class="p-3 bg-sage-600 rounded-full text-white shadow-lg">
+                                    <i data-lucide="map-pin" class="w-6 h-6"></i>
+                                </span>
+                                Recepção
                             </h3>
                             <p class="text-rustic-500 font-sans uppercase tracking-widest text-sm pl-2">Onde a magia acontece</p>
                         </div>
@@ -244,7 +290,7 @@
                             <div class="flex items-center gap-4 pt-6 border-t border-rustic-100">
                                 <i data-lucide="calendar" class="w-5 h-5 text-sage-600"></i>
                                 <p class="text-rustic-700 font-medium">
-                                    25 de Julho de 2026 às 10:30
+                                    25 de Julho de 2026 às 12:30
                                 </p>
                             </div>
                         </div>
@@ -271,7 +317,7 @@
 
         <!-- SEÇÃO PRESENTES -->
         <section id="tab-gifts" class="hidden-section animate-fade-in">
-            <div class="min-h-screen bg-rustic-50 py-20 px-4 md:px-8">
+            <div class="min-h-screen bg-rustic-50 py-10 px-4 md:px-8">
                 <div class="max-w-[1600px] mx-auto">
                     <div class="text-center mb-16 space-y-6">
                         <div class="flex justify-center">
@@ -297,7 +343,7 @@
 
         <!-- SEÇÃO RSVP -->
         <section id="tab-rsvp" class="hidden-section animate-fade-in">
-            <div class="min-h-[calc(100vh-96px)] bg-rustic-50 py-20 px-6 flex items-center justify-center relative overflow-hidden">
+            <div class="min-h-[calc(100vh-96px)] bg-rustic-50 py-10 px-6 flex items-center justify-center relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-96 h-96 bg-sage-100 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
                 <div class="absolute bottom-0 left-0 w-96 h-96 bg-rustic-200 rounded-full mix-blend-multiply filter blur-3xl opacity-40"></div>
 
@@ -373,14 +419,14 @@
     </main>
 
     <!-- FOOTER -->
-    <footer class="bg-rustic-900 text-rustic-100 py-16 text-center border-t-4 border-sage-500">
+    <footer class="bg-rustic-900 text-rustic-100 py-8 text-center border-t-4 border-sage-500">
         <div class="max-w-4xl mx-auto px-6 space-y-6">
             <h2 class="font-script text-5xl mb-4 text-sage-100">Augusto & Carolini</h2>
             <div class="w-24 h-px bg-sage-500 mx-auto"></div>
             <p class="font-sans text-xs tracking-[0.2em] opacity-80 uppercase text-rustic-300">
                 Feito com amor • 2026
             </p>
-            <p class="text-sm text-rustic-400 italic font-serif">
+            <p class="text-sm italic font-serif">
                 "O amor é a única coisa que cresce à medida que se reparte."
             </p>
         </div>
@@ -429,30 +475,217 @@
         const MENSAGEM_CONFIRMACAO = "Olá, Confirmo minha presença no casamento!";
         const MESSAGE_NEGATIVA = "Olá, Infelizmente não poderei comparecer ao casamento, mas desejo toda a felicidade ao casal!";
 
-        const giftTitles = [
-            "Jantar Romântico", "Cotais de Lua de Mel", "Passeio de Barco", "Diária no Hotel", 
-            "Café da Manhã na Cama", "Massagem para Casal", "Kit Casa Nova", "Jogo de Panelas",
-            "Fritadeira Airfryer", "Máquina de Café", "Conjunto de Toalhas", "Roupa de Cama",
-            "Aparelho de Jantar", "Faqueiro Inox", "Liquidificador Turbo", "Batedeira Planetária",
-            "Aspirador Robô", "Alexa Echo Dot", "Kit Churrasco", "Adega de Vinhos",
-            "Decoração para Sala", "Quadros Decorativos", "Tapete para Sala", "Almofadas Personalizadas", "Contribuição Livre"
+        const gifts = [
+            { 
+                name: "Tigrinho, só que nesse caso só é bom para os noivos", 
+                image: "/public/fortune-tiger.png", 
+                price: 500,
+                livre: false, 
+                aleatorio: true,
+                description: "Teste sua sorte pegando um valor aleatorio entre 50 e 500."
+            },
+            { 
+                name: "Cota viagem para o Mexico", 
+                image: "https://images.unsplash.com/photo-1640130958318-7e9ae39bcf6f", 
+                price: 150, 
+                livre: false, 
+                aleatorio: false,
+                description: "Isso vai ser parte da lua de mel dos noivos."
+            },
+            { 
+                name: "Habilitação Arrais-Amador e Motonauta", 
+                image: "https://images.unsplash.com/photo-1505867798796-639ec7e8cdf5", 
+                price: 1100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Isso aqui é sonho do noivo mas vamos todos usar kkkkkkkkk."
+            },
+            { 
+                name:  "Vinhos para Adega", 
+                image: "https://images.unsplash.com/photo-1562601579-599dec564e06", 
+                price: 200, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ainda não temos a adega."
+            },
+            { 
+                name: "Passeio de Barco", 
+                image: "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Diária no Hotel", 
+                image: "https://images.unsplash.com/photo-1566073771259-6a8506099945", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Café da Manhã na Cama", 
+                image: "https://images.unsplash.com/photo-1533090161767-e6ffed986c88", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Massagem para Casal", 
+                image: "https://images.unsplash.com/photo-1544161515-4ab6ce6db874", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Kit Casa Nova", 
+                image: "https://images.unsplash.com/photo-1581539250439-c96689b516dd", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Jogo de Panelas", 
+                image: "https://images.unsplash.com/photo-1556910103-1c02745a30bf", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Máquina de Café", 
+                image: "https://images.unsplash.com/photo-1520970014086-2208d157c9e2", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Conjunto de Toalhas", 
+                image: "https://images.unsplash.com/photo-1579621970563-ebec7560eb3e", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Roupa de Cama", 
+                image: "https://images.unsplash.com/photo-1522771753037-633361652bff", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Aparelho de Jantar", 
+                image: "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Faqueiro Inox", 
+                image: "https://images.unsplash.com/photo-1584269600519-112d071b35e6", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Liquidificador Turbo", 
+                image: "https://images.unsplash.com/photo-1574966739987-65e38a0b0d3e", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Batedeira Planetária", 
+                image: "https://images.unsplash.com/photo-1578643463396-0997cb5328c1", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Aspirador Robô", 
+                image: "https://images.unsplash.com/photo-1557821552-17105176677c", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Alexa Echo Dot", 
+                image: "https://images.unsplash.com/photo-1543512214-318c77a790d3", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Kit Churrasco", 
+                image: "https://images.unsplash.com/photo-1555939594-58d7cb561ad1", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Adega de Vinhos", 
+                image: "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Decoração para Sala", 
+                image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Quadros Decorativos", 
+                image: "https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Tapete para Sala", 
+                image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Almofadas Personalizadas", 
+                image: "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6", 
+                price: 100, 
+                livre: false, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            },
+            { 
+                name: "Contribuição Livre", 
+                image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e", 
+                price: 100, 
+                livre: true, 
+                aleatorio: false,
+                description: "Ajude os noivos a realizarem este sonho."
+            }
         ];
-        // Imagens
-        const giftImages = [
-            "https://images.unsplash.com/photo-1414235077428-338989a2e8c0", "https://images.unsplash.com/photo-1576201836106-db1758fd1c97", 
-            "https://images.unsplash.com/photo-1544620347-c4fd4a3d5957", "https://images.unsplash.com/photo-1566073771259-6a8506099945", 
-            "https://images.unsplash.com/photo-1533090161767-e6ffed986c88", "https://images.unsplash.com/photo-1544161515-4ab6ce6db874", 
-            "https://images.unsplash.com/photo-1581539250439-c96689b516dd", "https://images.unsplash.com/photo-1556910103-1c02745a30bf", 
-            "https://images.unsplash.com/photo-1589365278144-c9e705f843ba", "https://images.unsplash.com/photo-1520970014086-2208d157c9e2", 
-            "https://images.unsplash.com/photo-1579621970563-ebec7560eb3e", "https://images.unsplash.com/photo-1522771753037-633361652bff", 
-            "https://images.unsplash.com/photo-1620706857370-e1b9770e8bb1", "https://images.unsplash.com/photo-1584269600519-112d071b35e6", 
-            "https://images.unsplash.com/photo-1574966739987-65e38a0b0d3e", "https://images.unsplash.com/photo-1578643463396-0997cb5328c1", 
-            "https://images.unsplash.com/photo-1557821552-17105176677c", "https://images.unsplash.com/photo-1543512214-318c77a790d3", 
-            "https://images.unsplash.com/photo-1555939594-58d7cb561ad1", "https://images.unsplash.com/photo-1506377247377-2a5b3b417ebb", 
-            "https://images.unsplash.com/photo-1513519245088-0e12902e5a38", "https://images.unsplash.com/photo-1579762715118-a6f1d4b934f1", 
-            "https://images.unsplash.com/photo-1586023492125-27b2c045efd7", "https://images.unsplash.com/photo-1584100936595-c0654b55a2e6", 
-            "https://images.unsplash.com/photo-1607346256330-dee7af15f7c5"
-        ];
+
         
         // --- Navegação ---
         function switchTab(tabId) {
@@ -481,11 +714,13 @@
         function renderGifts() {
             const container = document.getElementById('gift-grid-container');
             let html = '';
-            for(let i=0; i<25; i++) {
-                const title = giftTitles[i] || `Presente ${i+1}`;
-                const price = Math.floor(Math.random() * (500 - 50 + 1) + 50);
-                const img = (giftImages[i] || "https://images.unsplash.com/photo-1513885535751-8b9238bd345a") + "?q=80&w=400&h=300&auto=format&fit=crop";
-                
+            for(let i=0; i < 25; i++) {
+                const title = gifts[i].name || `Presente ${i+1}`;
+                const price = gifts[i].aleatorio ? Math.floor(Math.random() * (500 - 50 + 1) + 50) : gifts[i].price;
+                const img = (gifts[i].image || "https://images.unsplash.com/photo-1513885535751-8b9238bd345a") + "?q=80&w=400&h=300&auto=format&fit=crop";
+                const description = gifts[i].description || "Ajude os noivos a realizarem este sonho.";
+                const aleatorio = gifts[i].aleatorio;
+
                 html += `
                 <div class="bg-white rounded-sm shadow-sm hover:shadow-xl transition-all duration-300 overflow-hidden group flex flex-col h-full border border-rustic-100">
                     <div class="relative overflow-hidden aspect-[4/3]">
@@ -499,11 +734,11 @@
                         </div>
                     </div>
                     <div class="p-6 flex flex-col flex-grow text-center">
-                        <h3 class="font-serif text-xl text-rustic-800 mb-2 line-clamp-1">${title}</h3>
-                        <p class="text-xs text-rustic-500 mb-6 line-clamp-2 min-h-[2.5em] tracking-wide">Ajude os noivos a realizarem este sonho.</p>
+                        <h3 class="font-serif text-xl text-rustic-800 mb-2 break-words">${title}</h3>
+                        <p class="text-xs text-rustic-500 mb-6 line-clamp-2 min-h-[2.5em] tracking-wide">${description}</p>
                         <div class="mt-auto space-y-4 pt-4 border-t border-rustic-50">
-                            <p class="text-2xl font-medium text-sage-700 font-serif">R$ ${price.toFixed(2).replace('.', ',')}</p>
-                            <button onclick="openModal('${title}', ${price})" class="w-full bg-rustic-700 text-rustic-50 py-3 px-4 rounded-sm hover:bg-sage-600 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-xs uppercase tracking-[0.1em] font-medium">
+                            <p class="text-2xl font-medium text-sage-700 font-serif ${aleatorio ? "hidden" : ""}">R$ ${price.toFixed(2).replace('.', ',')}</p>
+                            <button onclick="openModal('${title}', ${price}, ${aleatorio})" class="w-full bg-rustic-700 text-rustic-50 py-3 px-4 rounded-sm hover:bg-sage-600 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-xs uppercase tracking-[0.1em] font-medium">
                                 <i data-lucide="shopping-bag" class="w-4 h-4"></i> Presentear
                             </button>
                         </div>
@@ -514,8 +749,10 @@
         }
 
         // --- Modal ---
-        function openModal(title, price) {
-
+        function openModal(title, price, aleatorio) {
+            if(aleatorio) {
+                price = Math.floor(Math.random() * (500 - 50 + 1)) + 50
+            }
             let PIX_KEY = gerarPix(price);
             
             document.getElementById('modal-title').innerText = title;
@@ -643,7 +880,6 @@
 
             return payload;
         }
-
 
         // --- Form Submission ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
