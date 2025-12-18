@@ -21,7 +21,9 @@
     <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Great+Vibes&family=Montserrat:wght@300;400;500;600&display=swap" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
 
-    <!-- Configuração do Tema (Cores Rústicas) -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+    <!-- Configuração do Tema -->
     <script>
       tailwind.config = {
         theme: {
@@ -403,7 +405,7 @@
                 </div>
 
                 <div class="w-56 h-56 bg-white border border-rustic-200 p-3 rounded-sm shadow-inner">
-                    <img id="modal-qr" src="" alt="QR Code" class="w-full h-full object-contain">
+                    <div id="modal-qr" class="w-full h-full object-contain"></div>
                 </div>
                 
                 <p class="text-sm text-rustic-500 font-serif italic">
@@ -420,6 +422,8 @@
     </div>
 
     <script>
+        let qrcode = null;
+
         // Dados
         const TELEFONE = "5548996651185";
         const MENSAGEM_CONFIRMACAO = "Olá, Confirmo minha presença no casamento!";
@@ -450,8 +454,6 @@
             "https://images.unsplash.com/photo-1607346256330-dee7af15f7c5"
         ];
         
-        const PIX_KEY = "00020126580014BR.GOV.BCB.PIX0136123e4567-e89b-12d3-a456-4266141740005204000053039865802BR5913AUGUSTO CAROL6008BRASILIA62070503***6304ABCD";
-
         // --- Navegação ---
         function switchTab(tabId) {
             ['home', 'gifts', 'rsvp'].forEach(t => {
@@ -513,10 +515,22 @@
 
         // --- Modal ---
         function openModal(title, price) {
+
+            let PIX_KEY = gerarPix(price);
+            
             document.getElementById('modal-title').innerText = title;
             document.getElementById('modal-price').innerText = `R$ ${price.toFixed(2).replace('.', ',')}`;
             document.getElementById('modal-pix-key').value = PIX_KEY;
-            document.getElementById('modal-qr').src = `https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=${encodeURIComponent(PIX_KEY)}&color=3e2f22`;
+            if(qrcode) {
+                qrcode.makeCode(PIX_KEY);
+            } else {
+                qrcode = new QRCode(document.getElementById("modal-qr"), {
+                    text: PIX_KEY,
+                    width: 200,
+                    height: 200
+                });
+            }
+            // document.getElementById('modal-qr').src = qrcode
             
             document.getElementById('payment-modal').classList.remove('hidden');
             lucide.createIcons();
@@ -581,6 +595,55 @@
 
             window.open(url, "_blank");
         }
+
+        function crc16(payload) {
+            let polinomio = 0x1021;
+            let resultado = 0xFFFF;
+
+            for (let i = 0; i < payload.length; i++) {
+                resultado ^= payload.charCodeAt(i) << 8;
+                for (let j = 0; j < 8; j++) {
+                    resultado = (resultado & 0x8000)
+                        ? (resultado << 1) ^ polinomio
+                        : resultado << 1;
+                }
+            }
+
+            return (resultado & 0xFFFF).toString(16).toUpperCase().padStart(4, '0');
+        }
+
+        function campo(id, valor) {
+            return id + valor.length.toString().padStart(2, '0') + valor;
+        }
+
+        function gerarPix(price) {
+            const chavePix = "de8bf5e6-c3b0-4f5c-8b9c-902e4e57af58";
+            const nome = "CAROLINI DOMINGOS";
+            const cidade = "SAO PAULO";
+            const valor = price.toFixed(2);
+
+            let payload =
+                campo("00", "01") +
+                campo("26",
+                    campo("00", "BR.GOV.BCB.PIX") +
+                    campo("01", chavePix)
+                ) +
+                campo("52", "0000") +
+                campo("53", "986") +
+                campo("54", valor) +
+                campo("58", "BR") +
+                campo("59", nome.substring(0, 25)) +
+                campo("60", cidade.substring(0, 15)) +
+                campo("62",
+                    campo("05", "***")
+                ) +
+                "6304";
+
+            payload += crc16(payload);
+
+            return payload;
+        }
+
 
         // --- Form Submission ---
         document.getElementById('rsvp-form').addEventListener('submit', function(e) {
