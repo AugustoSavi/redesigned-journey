@@ -125,6 +125,11 @@
                         <span class="uppercase tracking-widest text-xs md:text-sm font-sans">Confirmar presença</span>
                     </button>
 
+                    <button onclick="switchTab('locations')" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border text-rustic-600 border-transparent hover:text-sage-700 hover:bg-rustic-100">
+                        <i data-lucide="map-pinned" class="w-4 h-4"></i>
+                        <span class="uppercase tracking-widest text-xs md:text-sm font-sans">Localizações</span>
+                    </button>
+
                     <button onclick="switchTab('gifts')" id="btn-gifts" class="nav-btn flex items-center gap-2 px-4 md:px-6 py-2 rounded-md transition-all duration-500 border text-rustic-600 border-transparent hover:text-sage-700 hover:bg-rustic-100">
                         <i data-lucide="gift" class="w-4 h-4"></i>
                         <span class="uppercase tracking-widest text-xs md:text-sm font-sans">Presentes</span>
@@ -187,9 +192,12 @@
                         </p>
                     </div>
 
-                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4 auto-rows-[250px] p-4 bg-rustic-50 rounded-sm">
+                    <div class="grid grid-cols-1 md:grid-cols-4 gap-4
+            auto-rows-[75vh] md:auto-rows-fr
+            p-4 bg-rustic-50 rounded-sm">
                         <!-- Foto 1 -->
-                        <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-2 md:row-span-2">
+                        <div class="relative overflow-hidden rounded-sm shadow-sm
+            aspect-[9/16] md:aspect-auto">
                             <img src="public/1.jpg" class="w-full h-full object-cover img-vintage" alt="Casal">
                             <div class="absolute inset-0 bg-rustic-900/40 opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-center justify-center">
                                 <div class="border border-white/50 p-4 bg-black/20 backdrop-blur-sm">
@@ -199,21 +207,25 @@
                         </div>
 
                         <!-- Foto 2 -->
-                        <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-1">
+                        <div class="relative overflow-hidden rounded-sm shadow-sm
+            aspect-[9/16] md:aspect-auto">
                             <img src="public/2.JPG" class="w-full h-full object-cover img-vintage" alt="Abraço">
                         </div>
 
                          <!-- Foto 3 -->
-                         <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-2">
+                         <div class="relative overflow-hidden rounded-sm shadow-sm
+            aspect-[9/16] md:aspect-auto">
                             <img src="public/3.jpg" class="w-full h-full object-cover img-vintage" alt="Celebração">
                         </div>
 
                         <!-- Foto 4 -->
-                        <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-1">
+                        <div class="relative overflow-hidden rounded-sm shadow-sm
+            aspect-[9/16] md:aspect-auto">
                             <img src="public/4.jpg" class="w-full h-full object-cover img-vintage" alt="Selfie">
                         </div>
                          <!-- Foto 5 -->
-                         <div class="relative overflow-hidden rounded-sm shadow-sm hover:shadow-xl transition-all duration-700 group cursor-pointer md:col-span-1 md:row-span-1">
+                         <div class="relative overflow-hidden rounded-sm shadow-sm
+            aspect-[9/16] md:aspect-auto">
                             <img src="public/5.jpg" class="w-full h-full object-cover img-vintage" alt="Sorrisos">
                         </div>
                     </div>
@@ -221,7 +233,7 @@
             </div>
 
             <!-- Location Section -->
-            <div class="bg-rustic-100 py-24 px-6 relative overflow-hidden">
+            <div id="locations" class="bg-rustic-100 py-24 px-6 relative overflow-hidden">
                 <div class="absolute top-0 right-0 w-64 h-64 bg-sage-100 rounded-full opacity-30 blur-3xl translate-x-1/2 -translate-y-1/2"></div>
                 <div class="absolute bottom-0 left-0 w-64 h-64 bg-rustic-300 rounded-full opacity-20 blur-3xl -translate-x-1/2 translate-y-1/2"></div>
 
@@ -469,6 +481,7 @@
 
     <script>
         let qrcode = null;
+        let selectTab = null;
 
         // Dados
         const TELEFONE = "5548996651185";
@@ -665,6 +678,20 @@
         
         // --- Navegação ---
         function switchTab(tabId) {
+            if(!tabId || tabId === selectTab) return;
+            if(tabId === 'locations' && selectTab !== 'locations') {
+                // volta para a home e scrolla para a seção de locations
+                switchTab('home');
+                setTimeout(() => {
+                    const locSection = document.getElementById('locations');
+                    if(locSection) {
+                        locSection.scrollIntoView({ behavior: 'smooth' });
+                    }
+                }, 300);
+                selectTab = 'locations';
+                return;
+            }
+
             ['home', 'gifts', 'rsvp'].forEach(t => {
                 document.getElementById('tab-'+t).style.display = (t === tabId) ? 'block' : 'none';
                 
@@ -684,6 +711,7 @@
             });
             lucide.createIcons();
             window.scrollTo(0,0);
+            selectTab = tabId;
         }
 
         // --- Renderizar Presentes ---
