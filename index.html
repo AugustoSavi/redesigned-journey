@@ -147,10 +147,13 @@
         <!-- SEÇÃO HOME -->
         <section id="tab-home" class="animate-fade-in pb-0">
             <!-- Hero Section -->
-            <div class="relative h-[85vh] w-full overflow-hidden">
-                <div class="absolute inset-0 bg-cover bg-center bg-no-repeat transform hover:scale-105 transition-transform duration-[40s]"
-                     style="background-image: url('public/6.jpg')">
+            <div class="relative h-[90vh] w-full overflow-hidden bg-gray-950">
+                <div
+                    id="hero-bg"
+                    class="absolute inset-0 bg-cover bg-no-repeat transition-opacity duration-1000 opacity-100"
+                    style="background-image: url('public/IMG_1.JPG'); background-position: 50% 30%;">
                 </div>
+
                 <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center text-white text-center p-4">
                     <div class="animate-fade-in p-10 md:p-16 rounded-sm  max-w-3xl">
                         <p class="font-sans tracking-[0.4em] uppercase text-xs md:text-sm mb-6 text-rustic-100 font-bold border-b border-white/30 pb-4 inline-block">Vamos nos casar</p>
@@ -484,6 +487,7 @@
     <script>
         let qrcode = null;
         let selectTab = null;
+        let isMobile = window.innerWidth <= 768;
 
         // Dados
         const TELEFONE = "5548996651185";
@@ -676,7 +680,6 @@
                 description: "Contribua com o valor que fizer sentido para você 💖"
             }
         ];
-
         
         // --- Navegação ---
         function switchTab(tabId) {
@@ -920,6 +923,58 @@
             checkRSVP();
             lucide.createIcons();
         });
+
+        function initSlide() {
+            let loaded = 0;
+            let current = 0;
+
+            const images = [
+                { src: 'public/IMG_1.JPG', y: '30%' , mobileX: '50%'},
+                { src: 'public/IMG_3.JPG', y: '30%' , mobileX: '65%'},
+                { src: 'public/IMG_4.JPG', y: '30%' , mobileX: '50%'},
+                { src: 'public/IMG_5.JPG', y: '70%' , mobileX: '50%'},
+                { src: 'public/IMG_6.JPG', y: '50%' , mobileX: '70%'},
+                { src: 'public/IMG_7.JPG', y: '30%' , mobileX: '50%'},
+            ];
+
+            // Preload
+            images.forEach(img => {
+                const image = new Image();
+                image.src = img.src;
+                image.onload = () => {
+                    loaded++;
+                    if (loaded === images.length) {
+                        startSlideshow();
+                    }
+                };
+            });
+
+            function startSlideshow() {
+                const bg = document.getElementById('hero-bg');
+
+                setInterval(() => {
+                    // Fade out
+                    bg.classList.remove('opacity-100');
+                    bg.classList.add('opacity-0');
+
+                    setTimeout(() => {
+                        current = (current + 1) % images.length;
+                        const img = images[current];
+
+                        let mobileX = isMobile ? img.mobileX : '50%';
+
+                        bg.style.backgroundImage = `url('${img.src}')`;
+                        bg.style.backgroundPosition = `${mobileX} ${img.y}`;
+
+                        // Fade in
+                        bg.classList.remove('opacity-0');
+                        bg.classList.add('opacity-100');
+                    }, 1000); // mesmo tempo do duration
+                }, 6000);
+            }
+        }
+
+        initSlide();
     </script>
 </body>
 </html>
