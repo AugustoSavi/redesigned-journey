@@ -106,7 +106,7 @@
         }
     </style>
 
-    <link rel="preload" as="image" href="public/IMG_1.JPG">
+    <link rel="preload" as="image" href="public/IMG_1.jpg">
 
 </head>
 <body class="bg-rustic-50 text-rustic-900 font-sans antialiased selection:bg-rustic-200 selection:text-rustic-800">
@@ -151,10 +151,18 @@
         <section id="tab-home" class="animate-fade-in pb-0">
             <!-- Hero Section -->
             <div class="relative h-[90vh] w-full overflow-hidden bg-gray-950">
+                <div class="relative h-[90vh] w-full overflow-hidden">
+
                 <div
-                    id="hero-bg"
-                    class="absolute inset-0 bg-cover bg-no-repeat transition-opacity duration-1000 opacity-100"
-                    style="background-image: url('public/IMG_1.JPG'); background-position: 50% 30%;">
+                    id="hero-bg-1"
+                    class="absolute inset-0 bg-cover bg-no-repeat transition-opacity duration-1000 opacity-100">
+                </div>
+
+                <div
+                    id="hero-bg-2"
+                    class="absolute inset-0 bg-cover bg-no-repeat transition-opacity duration-1000 opacity-0">
+                </div>
+
                 </div>
 
                 <div class="absolute inset-0 bg-black/20 flex flex-col items-center justify-center text-white text-center p-4">
@@ -217,7 +225,7 @@
                         <!-- Foto 2 -->
                         <div class="relative overflow-hidden rounded-sm shadow-sm
             aspect-[9/16] md:aspect-auto">
-                            <img src="public/2.JPG" class="w-full h-full object-cover img-vintage" alt="Abraço">
+                            <img src="public/2.jpg" class="w-full h-full object-cover img-vintage" alt="Abraço">
                         </div>
 
                          <!-- Foto 3 -->
@@ -929,17 +937,26 @@
         function initSlide() {
             let loaded = 0;
             let current = 0;
+            let active = 1;
 
             const images = [
-                { src: 'public/IMG_1.JPG', y: '30%' , mobileX: '50%'},
-                { src: 'public/IMG_3.JPG', y: '30%' , mobileX: '65%'},
-                { src: 'public/IMG_4.JPG', y: '30%' , mobileX: '50%'},
-                { src: 'public/IMG_5.JPG', y: '70%' , mobileX: '50%'},
-                { src: 'public/IMG_6.JPG', y: '50%' , mobileX: '70%'},
-                { src: 'public/IMG_7.JPG', y: '30%' , mobileX: '50%'},
+                { src: 'public/IMG_1.jpg', y: '30%', mobileX: '50%' },
+                { src: 'public/IMG_3.jpg', y: '30%', mobileX: '65%' },
+                { src: 'public/IMG_4.jpg', y: '30%', mobileX: '50%' },
+                { src: 'public/IMG_5.jpg', y: '70%', mobileX: '50%' },
+                { src: 'public/IMG_6.jpg', y: '50%', mobileX: '70%' },
+                { src: 'public/IMG_7.jpg', y: '30%', mobileX: '50%' },
             ];
 
-            // Preload
+            const bg1 = document.getElementById('hero-bg-1');
+            const bg2 = document.getElementById('hero-bg-2');
+
+            const isMobile = window.innerWidth < 768;
+
+            bg1.style.backgroundImage = `url('${images[0].src}')`;
+            bg1.style.backgroundPosition = `50% ${images[0].y}`;
+
+            // preload
             images.forEach(img => {
                 const image = new Image();
                 image.src = img.src;
@@ -952,26 +969,25 @@
             });
 
             function startSlideshow() {
-                const bg = document.getElementById('hero-bg');
-
                 setInterval(() => {
-                    // Fade out
-                    bg.classList.remove('opacity-100');
-                    bg.classList.add('opacity-0');
+                    current = (current + 1) % images.length;
+                    const img = images[current];
+                    const mobileX = isMobile ? img.mobileX : '50%';
 
-                    setTimeout(() => {
-                        current = (current + 1) % images.length;
-                        const img = images[current];
+                    const incoming = active === 1 ? bg2 : bg1;
+                    const outgoing = active === 1 ? bg1 : bg2;
 
-                        let mobileX = isMobile ? img.mobileX : '50%';
+                    // prepara a próxima imagem
+                    incoming.style.backgroundImage = `url('${img.src}')`;
+                    incoming.style.backgroundPosition = `${mobileX} ${img.y}`;
+                    incoming.classList.remove('opacity-0');
+                    incoming.classList.add('opacity-100');
 
-                        bg.style.backgroundImage = `url('${img.src}')`;
-                        bg.style.backgroundPosition = `${mobileX} ${img.y}`;
+                    // esconde a atual
+                    outgoing.classList.remove('opacity-100');
+                    outgoing.classList.add('opacity-0');
 
-                        // Fade in
-                        bg.classList.remove('opacity-0');
-                        bg.classList.add('opacity-100');
-                    }, 1000); // mesmo tempo do duration
+                    active = active === 1 ? 2 : 1;
                 }, 6000);
             }
         }
