@@ -15,7 +15,7 @@ const gifts = [
         price: 250,
         livre: false,
         aleatorio: true,
-        description: "Teste sua sorte pegando um valor aleatório entre 50 e 250! 🍀🐯"
+        description: "Teste sua sorte pegando um valor aleatório entre 200 e 500! 🍀🐯"
     },
         {
         name: "Tapete para Sala",
@@ -267,8 +267,7 @@ function renderGifts() {
 // --- Modal ---
 function openModal(title, price, aleatorio) {
     if (aleatorio) {
-        // valor aleatório entre 50 e 250
-        price = Math.floor(Math.random() * (250 - 50 + 1) + 50);
+        price = Math.floor(Math.random() * (500 - 200 + 1) + 200)
     }
     let PIX_KEY = gerarPix(price);
 
