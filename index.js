@@ -20,7 +20,7 @@ const gifts = [
         {
         name: "Tapete para Sala",
         image: "public/home.jpeg",
-        price: 59,
+        price: 127,
         livre: false,
         aleatorio: false,
         description: "Conforto e estilo para o dia a dia 🏡"
