@@ -3,11 +3,6 @@ let qrcode = null;
 let selectTab = null;
 let isMobile = window.innerWidth <= 768;
 
-// Dados
-const TELEFONE = "5548996651185";
-const MENSAGEM_CONFIRMACAO = "Olá, Confirmo minha presença no casamento!";
-const MESSAGE_NEGATIVA = "Olá, Infelizmente não poderei comparecer ao casamento, mas desejo toda a felicidade ao casal!";
-
 const gifts = [
     {
         name: "Tigrinho, só que nesse caso só é bom para os noivos",
@@ -17,21 +12,36 @@ const gifts = [
         aleatorio: true,
         description: "Teste sua sorte pegando um valor aleatório entre 200 e 500! 🍀🐯"
     },
-        {
-        name: "Tapete para Sala",
-        image: "public/home.jpeg",
+    {
+        name: "Lista de Presentes Miss Casa",
+        image: "public/miss_casa.png",
+        url: "https://www.misscasa.com.br/listas-de-presentes-inicio/carolini-domingos-savi-e-augusto-savi",
+        description: "Se preferir presentear com itens físicos, você também pode acessar nossa lista exclusiva no site Miss Casa.",
+        isExternal: true
+    },
+    {
+        name: "Contribuição Livre",
+        image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e",
+        price: 0,
+        livre: true,
+        aleatorio: false,
+        description: "Contribua com o valor que fizer sentido para você 💖"
+    },
+    {
+        name: "Bateria para noiva",
+        image: "https://images.tcdn.com.br/img/img_prod/640308/bateria_premium_dx35j_pk_rosa_junior_28135_1_9c1df606a88c0d5db9082376c9f86ad8.jpg",
         price: 127,
         livre: false,
         aleatorio: false,
-        description: "Conforto e estilo para o dia a dia 🏡"
+        description: "Barulho para irritar o noivo e os vizinhos 🏡"
     },
     {
-        name: "Almofadas Personalizadas",
-        image: "public/almofada.jpeg",
-        price: 122,
+        name: "Saco de ração para Luna",
+        image: "https://encrypted-tbn2.gstatic.com/shopping?q=tbn:ANd9GcRLqETnd2jpBraK8XoHObyUHsBrZaMapzt-0guy_Da-EwFu1A-_RYbgSWGX8FXH1P3bUyG4DJ1f6epobj7mCRTi7S2QePqKgqK6RAr8D--wqngtiCtvj8fzvRFbGNz2h4b9Vqlbr3k&usqp=CAc",
+        price: 227,
         livre: false,
         aleatorio: false,
-        description: "Porque até o sofá merece carinho 🛋️"
+        description: "Porque ela come muito e é parte da família 🐶️"
     },
     {
         name: "Cota viagem para o Mexico",
@@ -49,13 +59,29 @@ const gifts = [
         aleatorio: false,
         description: "Para começar a adega dos sonhos e brindar muitas conquistas 🍷"
     },
-    {
-        name: "Passeio de Barco",
-        image: "https://plus.unsplash.com/premium_photo-1661864602947-f5ed38119403",
-        price: 199,
+        {
+        name: "Habilitação Arrais-Amador e Motonauta",
+        image: "https://images.unsplash.com/photo-1505867798796-639ec7e8cdf5",
+        price: 1100,
         livre: false,
         aleatorio: false,
-        description: "Um passeio inesquecível para criar memórias a dois 🌊"
+        description: "Um sonho antigo do noivo… e diversão garantida para todo mundo depois 😎🚤"
+    },
+        {
+        name: "Hora de voo do curso de Piloto Privado",
+        image: "/public/cessna-152.png",
+        price: 1000,
+        livre: false,
+        aleatorio: false,
+        description: "Outro sonho do noivo... Ele promete nunca levar nenhum cantor sertanejo famoso. 😅✈️"
+    },
+    {
+        name: "Extintor de incêndio",
+        image: "https://images.tcdn.com.br/img/img_prod/686187/extintor_bc_08kg_recondicionado_1803_2_2be40ff1daa06a89782bcde5091348fb.jpg",
+        price: 210,
+        livre: false,
+        aleatorio: false,
+        description: "Para quando a noiva começar a cozinhar..."
     },
     {
         name: "Diária no Hotel",
@@ -82,16 +108,16 @@ const gifts = [
         description: "Relaxar juntos depois da correria do casamento 💆‍♂️💆‍♀️"
     },
     {
-        name: "Kit Casa Nova",
-        image: "https://images.unsplash.com/photo-1581539250439-c96689b516dd",
-        price: 180,
+        name: "Churrasco feito pelo noivo",
+        image: "/public/queimado.webp",
+        price: 250,
         livre: false,
         aleatorio: false,
-        description: "Ajuda essencial para deixar a casa com cara de lar 🏡"
+        description: "Feito com total atenção 😅🔥"
     },
     {
         name: "Jogo de Panelas",
-        image: "https://images.unsplash.com/photo-1587741011081-d85296fa2b2b",
+        image: "https://previews.123rf.com/images/lukazim/lukazim1811/lukazim181100169/114509562-woman-hitting-man-with-cooking-pan-family-scene-against-white-background.jpg",
         price: 397,
         livre: false,
         aleatorio: false,
@@ -103,7 +129,7 @@ const gifts = [
         price: 278,
         livre: false,
         aleatorio: false,
-        description: "Combustível oficial do casal ☕⚡"
+        description: "Entra café sai código, pro noivo ganhar mais dinheiros ☕⚡"
     },
     {
         name: "Conjunto de Toalhas",
@@ -163,7 +189,7 @@ const gifts = [
     },
     {
         name: "Decoração para Sala",
-        image: "https://images.unsplash.com/photo-1513519245088-0e12902e5a38",
+        image: "https://s2-g1.glbimg.com/EQ7ojigYbNMBXoEzLxohCILTS2s=/0x0:800x600/984x0/smart/filters:strip_icc()/i.s3.glbimg.com/v1/AUTH_59edd422c0c84a879bd37670ae4f538a/internal_photos/bs/2024/z/o/Qex645STmxjwwlB0NKNA/alien-14.png",
         price: 249,
         livre: false,
         aleatorio: false,
@@ -176,22 +202,6 @@ const gifts = [
         livre: false,
         aleatorio: false,
         description: "Detalhes que contam histórias 🎨"
-    },
-    {
-        name: "Habilitação Arrais-Amador e Motonauta",
-        image: "https://images.unsplash.com/photo-1505867798796-639ec7e8cdf5",
-        price: 1100,
-        livre: false,
-        aleatorio: false,
-        description: "Um sonho antigo do noivo… e diversão garantida para todo mundo depois 😎🚤"
-    },
-    {
-        name: "Contribuição Livre",
-        image: "https://images.unsplash.com/photo-1526304640581-d334cdbbf45e",
-        price: 100,
-        livre: true,
-        aleatorio: false,
-        description: "Contribua com o valor que fizer sentido para você 💖"
     }
 ];
 
@@ -253,10 +263,18 @@ function renderGifts() {
                         <h3 class="font-serif text-xl text-rustic-800 mb-2 break-words">${title}</h3>
                         <p class="text-xs text-rustic-500 mb-6 line-clamp-2 min-h-[2.5em] tracking-wide">${description}</p>
                         <div class="mt-auto space-y-4 pt-4 border-t border-rustic-50">
-                            <p class="text-2xl font-medium text-sage-700 font-serif ${aleatorio ? "hidden" : ""}">R$ ${price.toFixed(2).replace('.', ',')}</p>
-                            <button onclick="openModal('${title}', ${price}, ${aleatorio})" class="w-full bg-rustic-700 text-rustic-50 py-3 px-4 rounded-sm hover:bg-sage-600 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-xs uppercase tracking-[0.1em] font-medium">
-                                <i data-lucide="shopping-bag" class="w-4 h-4"></i> Presentear
-                            </button>
+                            ${  gifts[i].isExternal ? 
+                                `<a href="${gifts[i].url}" target="_blank" class="w-full bg-sage-600 text-white py-3 px-4 rounded-sm hover:bg-sage-700 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-xs uppercase tracking-[0.1em] font-medium">
+                                    <i data-lucide="external-link" class="w-4 h-4"></i> Ver Presente
+                                </a>`
+                                :
+                                `
+                                    ${ gifts[i].livre ? `` : `<p class="text-2xl font-medium text-sage-700 font-serif ${aleatorio ? "hidden" : ""}">R$ ${price.toFixed(2).replace('.', ',')}</p>`}
+                                    <button onclick="openModal('${title}', ${price}, ${aleatorio}, ${gifts[i].livre})" class="w-full bg-rustic-700 text-rustic-50 py-3 px-4 rounded-sm hover:bg-sage-600 transition-all shadow-sm hover:shadow-md flex items-center justify-center gap-2 text-xs uppercase tracking-[0.1em] font-medium">
+                                        <i data-lucide="shopping-bag" class="w-4 h-4"></i> Presentear
+                                    </button>
+                                `
+                            }
                         </div>
                     </div>
                 </div>`;
@@ -265,14 +283,19 @@ function renderGifts() {
 }
 
 // --- Modal ---
-function openModal(title, price, aleatorio) {
+function openModal(title, price, aleatorio, livre) {
     if (aleatorio) {
         price = Math.floor(Math.random() * (500 - 200 + 1) + 200)
     }
     let PIX_KEY = gerarPix(price);
 
     document.getElementById('modal-title').innerText = title;
-    document.getElementById('modal-price').innerText = `R$ ${price.toFixed(2).replace('.', ',')}`;
+    
+    if (livre) {
+        document.getElementById('modal-price').innerText = "Contribuição Livre, O QRcode vai permitir informar o valor";
+    } else{
+        document.getElementById('modal-price').innerText = `R$ ${price.toFixed(2).replace('.', ',')}`;
+    }
     document.getElementById('modal-pix-key').value = PIX_KEY;
     if (qrcode) {
         qrcode.makeCode(PIX_KEY);
@@ -283,7 +306,6 @@ function openModal(title, price, aleatorio) {
             height: 200
         });
     }
-    // document.getElementById('modal-qr').src = qrcode
 
     document.getElementById('payment-modal').classList.remove('hidden');
     lucide.createIcons();
@@ -316,47 +338,6 @@ function copyPix() {
         btn.innerHTML = `<i data-lucide="check" class="w-4 h-4"></i><span>Código Copiado!</span>`;
         lucide.createIcons();
     });
-}
-
-// --- RSVP ---
-function toggleGuestsField() {
-    const val = document.getElementById('attending').value;
-    const container = document.getElementById('guests-container');
-    container.style.display = (val === 'yes') ? 'block' : 'none';
-}
-
-function checkRSVP() {
-    if (localStorage.getItem('wedding_rsvp_completed')) {
-        showRSVPSuccess(true);
-    }
-}
-
-function showRSVPSuccess(already) {
-    document.getElementById('rsvp-form').classList.add('hidden');
-    const box = document.getElementById('rsvp-success');
-    box.classList.remove('hidden');
-    box.classList.add('flex');
-
-    if (already) {
-        document.getElementById('rsvp-title').innerText = "Presença Já Confirmada";
-        document.getElementById('rsvp-message').innerText = "Você já confirmou sua presença anteriormente. Nos vemos lá!";
-        document.getElementById('rsvp-warning').classList.remove('hidden');
-
-        const iconBox = document.getElementById('rsvp-icon-box');
-        iconBox.className = "w-20 h-20 rounded-full flex items-center justify-center mb-6 shadow-sm border border-white bg-sage-100";
-        iconBox.innerHTML = `<i data-lucide="check-circle" class="w-10 h-10 text-sage-600"></i>`;
-    }
-    lucide.createIcons();
-}
-
-function ConfirmarWhatsApp(presenca) {
-    const isMobile = /Android|iPhone|iPad|iPod/i.test(navigator.userAgent);
-    const texto = encodeURIComponent(presenca === 'yes' ? MENSAGEM_CONFIRMACAO : MESSAGE_NEGATIVA);
-    const url = isMobile
-        ? `https://wa.me/${TELEFONE}?text=${texto}`
-        : `https://web.whatsapp.com/send?phone=${TELEFONE}&text=${texto}`;
-
-    window.open(url, "_blank");
 }
 
 function crc16(payload) {
@@ -407,26 +388,9 @@ function gerarPix(price) {
     return payload;
 }
 
-// --- Form Submission ---
-document.getElementById('rsvp-form').addEventListener('submit', function (e) {
-    e.preventDefault();
-    const btn = document.getElementById('submit-btn');
-    btn.disabled = true;
-    btn.innerHTML = `<span class="w-4 h-4 border-2 border-white/30 border-t-white rounded-full animate-spin"></span> Acessando...`;
-
-    const val = document.getElementById('attending').value;
-    ConfirmarWhatsApp(val);
-
-    setTimeout(() => {
-        localStorage.setItem('wedding_rsvp_completed', 'true');
-        showRSVPSuccess(false);
-    }, 1500);
-});
-
 // --- Init ---
 window.addEventListener('DOMContentLoaded', () => {
     renderGifts();
-    checkRSVP();
     lucide.createIcons();
 });
 
